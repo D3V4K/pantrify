@@ -1246,14 +1246,16 @@
             document.getElementById('result').style.display = 'block';
             document.getElementById('thirdIngredient').textContent = 'Processing...';
             
-            // Placeholder for actual API call to backend
-            // Replace this with your actual backend call
-            setTimeout(function() {
-                // This is just a placeholder - replace with actual backend response
-                const possibleIngredients = ['garlic', 'onion', 'olive oil', 'salt', 'pepper', 'tomato', 'basil'];
-                const suggestedIngredient = possibleIngredients[Math.floor(Math.random() * possibleIngredients.length)];
-                document.getElementById('thirdIngredient').textContent = suggestedIngredient;
-            }, 1000);
+            // Make API call to FastAPI backend
+            fetch(`http://localhost:8000/generate-ingredient?ingredient1=${encodeURIComponent(ingredient1)}&ingredient2=${encodeURIComponent(ingredient2)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('thirdIngredient').textContent = data.third_ingredient;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('thirdIngredient').textContent = 'Error generating ingredient';
+                });
         });
     </script>
 </body>
