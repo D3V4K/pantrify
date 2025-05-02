@@ -1,7 +1,7 @@
 import pandas as pd
 
 
-df = pd.read_csv('../datasets/taste_trios.csv')
+df = pd.read_csv('datasets/taste_trios.csv')
 
 # Convert compatibility levels to numeric scores
 compatibility_scores = {
