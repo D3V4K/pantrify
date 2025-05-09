@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from recommender.exact_match import find_matching_ingredient
+from recommender.compound_connections import BFS_Connections_Search
 from fastapi.responses import HTMLResponse
 
 app = FastAPI()
@@ -22,8 +23,13 @@ def read_root():
 def generate_ingredient(ingredient1: str, ingredient2: str):
     matches = find_matching_ingredient(ingredient1, ingredient2)
     
-    if matches == -1:
+    if matches == -1: #Direct connections
         return {"third_ingredient": "Some of the entered ingredients are not found in the dataset"}
-    if not matches:
-        return {"third_ingredient": "No direct compatible combinations found, BFS algorithm/AI thingy goes here"}
-    return {"third_ingredient": matches[0][0]}
+    if not matches: #BFS connections. 
+        bfs_results = BFS_Connections_Search(ingredient1, ingredient2, 'highly')
+        if bfs_results:
+            return {"third_ingredient": f"{', '.join(bfs_results)}"}
+        #Could add the AI thingy here
+        return {"third_ingredient": "No compatible combinations found, AI thingy goes here"}
+
+    return {"third_ingredient": f"{matches[0][0]} (found via direct connection)"}
