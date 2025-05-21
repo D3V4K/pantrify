@@ -18,3 +18,4 @@ requests==2.32.3
 #typing_extensions==4.13.1
 #tzdata==2025.2
 #urllib3==2.4.0
+fastapi-cli==0.0.7
