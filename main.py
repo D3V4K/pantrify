@@ -3,9 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from recommender.exact_match import find_matching_ingredient
 from recommender.compound_connections import BFS_Connections_Search
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 
+app.mount("/static", StaticFiles(directory="FrontEnd/static"), name="static")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Allows all origins
@@ -13,6 +15,8 @@ app.add_middleware(
     allow_methods=["*"],  # Allows all methods
     allow_headers=["*"],  # Allows all headers
 )
+
+
 
 @app.get("/", response_class=HTMLResponse)
 def read_root():
@@ -33,3 +37,4 @@ def generate_ingredient(ingredient1: str, ingredient2: str):
         return {"third_ingredient": "No compatible combinations found, AI thingy goes here"}
 
     return {"third_ingredient": f"{matches[0][0]} (found via direct connection)"}
+
