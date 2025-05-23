@@ -79,12 +79,12 @@
                 return;
             }
             
-            // Show the result div and set to processing
+
             document.getElementById('result').style.display = 'block';
             document.getElementById('thirdIngredient').textContent = 'Processing...';
             
-            // Make API call to FastAPI backend
-            fetch(`http://localhost:8000/generate-ingredient?ingredient1=${encodeURIComponent(ingredient1)}&ingredient2=${encodeURIComponent(ingredient2)}`)
+            // API call to FastAPI backend
+            fetch(`/generate-ingredient?ingredient1=${encodeURIComponent(ingredient1)}&ingredient2=${encodeURIComponent(ingredient2)}`)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('thirdIngredient').textContent = data.third_ingredient;
