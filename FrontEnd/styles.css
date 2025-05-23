@@ -1,0 +1,998 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    transition: all 0.3s ease;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Theme-specific styles */
+body.italian-theme {
+    background-image: url('https://www.transparenttextures.com/patterns/wood-pattern.png');
+    --primary-color: #8B3A3A; /* Tuscan red */
+    --secondary-color: #556B2F; /* Olive green */
+    --accent-color: #F5F5DC; /* Beige */
+    --background-color: #F5DEB3; /* Wheat */
+    --font-family: 'Playfair Display', serif;
+    --text-color: #2F4F4F; /* Dark slate */
+}
+
+body.mexican-theme {
+    background-image: url('https://www.transparenttextures.com/patterns/mexican-pattern.png');
+    --primary-color: #8B4513; /* Saddle brown */
+    --secondary-color: #8B0000; /* Dark red */
+    --accent-color: #DEB887; /* Burlywood */
+    --background-color: #F5DEB3; /* Wheat */
+    --font-family: 'Quicksand', sans-serif;
+    --text-color: #4B3621; /* Dark brown */
+    --border-style: 2px solid var(--primary-color);
+    --border-radius: 8px;
+}
+
+body.mexican-theme .container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+}
+
+body.mexican-theme .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(90deg, 
+        #8B4513 0%, 
+        #8B0000 25%, 
+        #DEB887 50%, 
+        #8B0000 75%, 
+        #8B4513 100%
+    );
+}
+
+body.mexican-theme h1 {
+    font-family: 'Quicksand', sans-serif;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding-bottom: 10px;
+}
+
+body.mexican-theme .theme-selector select {
+    background-color: var(--accent-color);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    font-weight: bold;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+body.mexican-theme .theme-selector select:hover {
+    background-color: var(--secondary-color);
+    color: var(--accent-color);
+}
+
+body.mexican-theme input[type="text"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body.mexican-theme input[type="text"]:focus {
+    box-shadow: 0 0 5px var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+body.mexican-theme button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--accent-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 15px 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+body.mexican-theme button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+body.mexican-theme #result {
+    background-color: var(--accent-color);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    position: relative;
+}
+
+body.mexican-theme #result::before {
+    content: '✨';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.2em;
+}
+
+body.mexican-theme .ingredient-label {
+    color: var(--text-color);
+    font-weight: bold;
+    margin-bottom: 5px;
+    position: relative;
+    padding-left: 25px;
+}
+
+body.mexican-theme .container::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 10px;
+    background: linear-gradient(90deg, 
+        #8B4513 0%, 
+        #8B0000 25%, 
+        #DEB887 50%, 
+        #8B0000 75%, 
+        #8B4513 100%
+    );
+}
+
+body.mexican-theme .container {
+    background-image: 
+        linear-gradient(45deg, rgba(139, 69, 19, 0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(139, 69, 19, 0.05) 25%, transparent 25%);
+    background-size: 20px 20px;
+}
+
+body.japanese-theme {
+    background-image: url('https://www.transparenttextures.com/patterns/sakura-pattern.png');
+    --primary-color: #E8B4B8; /* Soft pink */
+    --secondary-color: #67575C; /* Muted plum */
+    --accent-color: #F9F1F0; /* Soft white */
+    --background-color: #FDF6F5; /* Warm white */
+    --font-family: 'Noto Serif JP', serif;
+    --text-color: #67575C; /* Muted plum */
+    --border-style: 1px solid var(--primary-color);
+    --border-radius: 4px;
+    background-color: var(--background-color);
+}
+
+body.japanese-theme .container {
+    background-color: rgba(249, 241, 240, 0.95);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(232, 180, 184, 0.2);
+}
+
+body.japanese-theme h1 {
+    font-family: 'Noto Serif JP', serif;
+    color: var(--secondary-color);
+    text-shadow: 1px 1px 2px rgba(232, 180, 184, 0.3);
+    position: relative;
+    padding-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+body.japanese-theme .theme-selector select {
+    background-color: var(--accent-color);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    font-family: 'Noto Sans JP', sans-serif;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+body.japanese-theme .theme-selector select:hover {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+}
+
+body.japanese-theme input[type="text"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body.japanese-theme input[type="text"]:focus {
+    box-shadow: 0 0 5px var(--primary-color);
+    border-color: var(--secondary-color);
+}
+
+body.japanese-theme button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--accent-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 12px 25px;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+body.japanese-theme button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(232, 180, 184, 0.3);
+}
+
+body.japanese-theme #result {
+    background-color: var(--accent-color);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    position: relative;
+}
+
+body.japanese-theme .ingredient-label {
+    color: var(--text-color);
+    font-weight: bold;
+    margin-bottom: 5px;
+    position: relative;
+    padding-left: 25px;
+    font-family: 'Noto Sans JP', sans-serif;
+}
+
+body.japanese-theme p {
+    color: var(--text-color);
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.6;
+}
+
+/* Add sakura petal animation */
+@keyframes sakura-fall {
+    0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0.5;
+    }
+}
+
+body.japanese-theme::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(232, 180, 184, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(232, 180, 184, 0.1) 0%, transparent 20%);
+    z-index: -1;
+}
+
+/* Add subtle pattern overlay */
+body.japanese-theme .container {
+    background-image: 
+        linear-gradient(45deg, rgba(232, 180, 184, 0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(232, 180, 184, 0.05) 25%, transparent 25%);
+    background-size: 20px 20px;
+}
+
+body.indian-theme {
+    background-image: url('srk.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    --primary-color: #FFD700; /* Gold */
+    --secondary-color: #8B0000; /* Dark red */
+    --accent-color: #000000; /* Black */
+    --background-color: rgba(0, 0, 0, 0.7);
+    --font-family: 'Cinzel', serif;
+    --text-color: #FFFFFF;
+    --border-style: 2px solid var(--primary-color);
+    --border-radius: 0;
+    position: relative;
+}
+
+body.indian-theme::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(139, 0, 0, 0.6));
+    z-index: -1;
+}
+
+body.indian-theme .container {
+    background-color: rgba(0, 0, 0, 0.8);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+body.indian-theme h1 {
+    font-family: 'Cinzel', serif;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    position: relative;
+    padding-bottom: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+body.indian-theme .theme-selector select {
+    background-color: var(--accent-color);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    color: var(--primary-color);
+    font-family: 'Cinzel', serif;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+body.indian-theme .theme-selector select:hover {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+}
+
+body.indian-theme input[type="text"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body.indian-theme input[type="text"]:focus {
+    box-shadow: 0 0 10px var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+body.indian-theme button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--accent-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 15px 30px;
+    font-family: 'Cinzel', serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+body.indian-theme button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--primary-color);
+}
+
+body.indian-theme #result {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    position: relative;
+}
+
+body.indian-theme .ingredient-label {
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 5px;
+    position: relative;
+    padding-left: 25px;
+    font-family: 'Cinzel', serif;
+    text-transform: uppercase;
+}
+
+body.indian-theme p {
+    color: var(--text-color);
+    font-family: 'Cinzel', serif;
+    line-height: 1.6;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Add Bollywood-style animation */
+@keyframes bollywood-sparkle {
+    0% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+}
+
+body.indian-theme .container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%);
+    animation: bollywood-sparkle 3s infinite;
+    z-index: -1;
+}
+
+/* Add SRK signature style */
+.srk-signature {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: var(--primary-color);
+    font-family: 'Cinzel', serif;
+    font-size: 0.8em;
+    opacity: 0.7;
+}
+
+body.thai-theme {
+    background-image: url('https://www.transparenttextures.com/patterns/thai-pattern.png');
+    --primary-color: #B8860B; /* Dark goldenrod */
+    --secondary-color: #8B4513; /* Saddle brown */
+    --accent-color: #FFF8DC; /* Cornsilk */
+    --background-color: #F5F5DC; /* Beige */
+    --font-family: 'Poppins', sans-serif;
+    --text-color: #4B3621; /* Dark brown */
+    --border-style: 2px solid var(--primary-color);
+    --border-radius: 8px;
+    background-color: var(--background-color);
+}
+
+body.thai-theme .container {
+    background-color: rgba(255, 248, 220, 0.95);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(184, 134, 11, 0.2);
+}
+
+body.thai-theme h1 {
+    font-family: 'Poppins', sans-serif;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+body.thai-theme .theme-selector select {
+    background-color: var(--accent-color);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+body.thai-theme .theme-selector select:hover {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+}
+
+body.thai-theme input[type="text"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body.thai-theme input[type="text"]:focus {
+    box-shadow: 0 0 5px var(--primary-color);
+    border-color: var(--secondary-color);
+}
+
+body.thai-theme button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--accent-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 15px 30px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+body.thai-theme button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);
+}
+
+body.thai-theme #result {
+    background-color: var(--accent-color);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    position: relative;
+}
+
+body.thai-theme .ingredient-label {
+    color: var(--text-color);
+    font-weight: bold;
+    margin-bottom: 5px;
+    position: relative;
+    padding-left: 25px;
+    font-family: 'Poppins', sans-serif;
+}
+
+body.thai-theme p {
+    color: var(--text-color);
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+}
+
+/* Add Thai-style pattern overlay */
+body.thai-theme .container {
+    background-image: 
+        linear-gradient(45deg, rgba(184, 134, 11, 0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(184, 134, 11, 0.05) 25%, transparent 25%);
+    background-size: 20px 20px;
+}
+
+/* Add Thai-style decorative elements */
+body.thai-theme::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 10% 20%, rgba(184, 134, 11, 0.1) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(184, 134, 11, 0.1) 0%, transparent 20%);
+    z-index: -1;
+}
+
+/* Add Thai-style quote */
+.thai-quote {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: var(--primary-color);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.8em;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+/* Chinese Theme */
+body.chinese-theme {
+    background-image: url('https://www.transparenttextures.com/patterns/chinese-pattern.png');
+    --primary-color: #B22222; /* Firebrick red */
+    --secondary-color: #FFD700; /* Gold */
+    --accent-color: #FFF8DC; /* Cornsilk */
+    --background-color: #F5F5DC; /* Beige */
+    --font-family: 'Noto Serif SC', serif;
+    --text-color: #4B3621; /* Dark brown */
+    --border-style: 2px solid var(--primary-color);
+    --border-radius: 4px;
+    background-color: var(--background-color);
+}
+
+body.chinese-theme .container {
+    background-color: rgba(255, 248, 220, 0.95);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(178, 34, 34, 0.2);
+}
+
+body.chinese-theme h1 {
+    font-family: 'Noto Serif SC', serif;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+body.chinese-theme .theme-selector select {
+    background-color: var(--accent-color);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    font-family: 'Noto Serif SC', serif;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+body.chinese-theme .theme-selector select:hover {
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+}
+
+body.chinese-theme input[type="text"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body.chinese-theme input[type="text"]:focus {
+    box-shadow: 0 0 5px var(--primary-color);
+    border-color: var(--secondary-color);
+}
+
+body.chinese-theme button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--accent-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 15px 30px;
+    font-family: 'Noto Serif SC', serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+body.chinese-theme button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(178, 34, 34, 0.3);
+}
+
+/* Greek Theme */
+body.greek-theme {
+    background-image: url('https://www.transparenttextures.com/patterns/greek-pattern.png');
+    --primary-color: #000080; /* Navy blue */
+    --secondary-color: #FFFFFF; /* White */
+    --accent-color: #F5F5DC; /* Beige */
+    --background-color: #F0F8FF; /* Alice blue */
+    --font-family: 'Noto Serif Display', serif;
+    --text-color: #000080; /* Navy blue */
+    --border-style: 2px solid var(--primary-color);
+    --border-radius: 8px;
+    background-color: var(--background-color);
+}
+
+body.greek-theme .container {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 128, 0.2);
+}
+
+body.greek-theme h1 {
+    font-family: 'Noto Serif Display', serif;
+    color: var(--primary-color);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+body.greek-theme .theme-selector select {
+    background-color: var(--accent-color);
+    border: var(--border-style);
+    border-radius: var(--border-radius);
+    color: var(--text-color);
+    font-family: 'Noto Serif Display', serif;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+body.greek-theme .theme-selector select:hover {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+body.greek-theme input[type="text"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body.greek-theme input[type="text"]:focus {
+    box-shadow: 0 0 5px var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+body.greek-theme button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    color: var(--secondary-color);
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 15px 30px;
+    font-family: 'Noto Serif Display', serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+body.greek-theme button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 128, 0.3);
+}
+
+/* Add Greek-style quote */
+.greek-quote {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: var(--primary-color);
+    font-family: 'Noto Serif Display', serif;
+    font-size: 0.8em;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+/* Add Chinese-style quote */
+.chinese-quote {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    color: var(--primary-color);
+    font-family: 'Noto Serif SC', serif;
+    font-size: 0.8em;
+    opacity: 0.7;
+    font-style: italic;
+}
+
+h1 {
+    font-family: var(--font-family);
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 10px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.theme-selector select {
+    padding: 8px 15px;
+    font-size: 1em;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    cursor: pointer;
+    outline: none;
+    font-family: var(--font-family);
+}
+
+.ingredient-label {
+    color: var(--text-color);
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-size: 1.2em;
+    font-family: var(--font-family);
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
+}
+
+button {
+    padding: 15px 25px;
+    background-color: var(--primary-color);
+    color: var(--accent-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--font-family);
+}
+
+button:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+#result {
+    margin-top: 20px;
+    padding: 20px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    display: none;
+    background-color: var(--accent-color);
+}
+
+#result h2 {
+    color: var(--primary-color);
+    font-family: var(--font-family);
+    margin-top: 0;
+}
+
+#thirdIngredient {
+    font-size: 1.3em;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+p {
+    color: var(--text-color);
+    text-align: center;
+    font-size: 1.1em;
+    font-family: var(--font-family);
+}
+
+.theme-selector {
+    text-align: center;
+    margin: 10px 0 20px;
+}
+
+/* Add transition animations */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes themeTransition {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.95); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+body {
+    transition: background-color 0.5s ease, background-image 0.5s ease;
+}
+
+.container {
+    transition: all 0.5s ease;
+    animation: fadeIn 0.5s ease-out;
+}
+
+h1 {
+    transition: all 0.5s ease;
+    animation: slideIn 0.5s ease-out;
+}
+
+.theme-selector select {
+    transition: all 0.3s ease;
+}
+
+input[type="text"] {
+    transition: all 0.3s ease;
+}
+
+button {
+    transition: all 0.3s ease;
+}
+
+#result {
+    transition: all 0.5s ease;
+}
+
+/* Theme-specific animations */
+body.chinese-theme .container {
+    background-image: 
+        linear-gradient(45deg, rgba(178, 34, 34, 0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(178, 34, 34, 0.05) 25%, transparent 25%);
+    background-size: 20px 20px;
+}
+
+body.greek-theme .container {
+    background-image: 
+        linear-gradient(45deg, rgba(0, 0, 128, 0.05) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(0, 0, 128, 0.05) 25%, transparent 25%);
+    background-size: 20px 20px;
+}
+
+/* Add hover animations */
+.theme-selector select:hover {
+    transform: scale(1.05);
+}
+
+input[type="text"]:focus {
+    transform: scale(1.02);
+}
+
+button:hover {
+    transform: translateY(-2px) scale(1.05);
+}
+
+/* Add theme transition class */
+.theme-transition {
+    animation: themeTransition 0.5s ease;
+} 

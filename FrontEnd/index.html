@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pantrify</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Roboto:wght@400;700&family=Noto+Sans+JP:wght@400;700&family=Poppins:wght@400;700&family=Montserrat:wght@400;700&family=Quicksand:wght@400;700&family=Noto+Serif+JP:wght@400;700&family=Cinzel:wght@400;700&family=Noto+Serif+SC:wght@400;700&family=Noto+Serif+Display:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+<body class="chinese-theme">
+    <div class="container">
+        <h1>Pantrify</h1>
+        <div class="theme-selector">
+            <select id="cuisineTheme">
+                <option value="italian">Italian Cuisine</option>
+                <option value="mexican">Mexican Cuisine</option>
+                <option value="chinese">Chinese Cuisine</option>
+                <option value="indian">Indian Cuisine</option>
+                <option value="thai">Thai Cuisine</option>
+                <option value="greek">Greek Cuisine</option>
+            </select>
+        </div>
+        <p>Enter two ingredients below to get suggested ingredients:</p>
+        
+        <div class="ingredient-label">First Ingredient:</div>
+        <input type="text" id="ingredient1" placeholder="Enter first ingredient...">
+        
+        <div class="ingredient-label">Second Ingredient:</div>
+        <input type="text" id="ingredient2" placeholder="Enter second ingredient...">
+        
+        <button id="combineBtn">Generate Third Ingredient</button>
+        
+        <div id="result">
+            <h2>Suggested Ingredients:</h2>
+            <p id="thirdIngredient"></p>
+        </div>
+    </div>
+
+    <script>
+        // Theme switching functionality
+        document.getElementById('cuisineTheme').addEventListener('change', function() {
+            const selectedTheme = this.value;
+            const body = document.body;
+            const container = document.querySelector('.container');
+            
+            // Add transition class
+            container.classList.add('theme-transition');
+            
+            // Remove transition class after animation
+            setTimeout(() => {
+                container.classList.remove('theme-transition');
+            }, 500);
+            
+            // Smoothly transition to new theme
+            body.style.opacity = '0';
+            setTimeout(() => {
+                body.className = selectedTheme + '-theme';
+                body.style.opacity = '1';
+                
+                // Update all elements with theme colors
+                const elements = document.querySelectorAll('h1, .ingredient-label, button, input[type="text"], #result h2');
+                elements.forEach(element => {
+                    element.style.borderColor = getComputedStyle(body).getPropertyValue('--primary-color');
+                    element.style.color = getComputedStyle(body).getPropertyValue('--primary-color');
+                });
+                
+                document.querySelector('button').style.backgroundColor = getComputedStyle(body).getPropertyValue('--primary-color');
+                document.querySelector('button:hover').style.backgroundColor = getComputedStyle(body).getPropertyValue('--secondary-color');
+            }, 300);
+        });
+
+        document.getElementById('combineBtn').addEventListener('click', function() {
+            const ingredient1 = document.getElementById('ingredient1').value;
+            const ingredient2 = document.getElementById('ingredient2').value;
+            
+            if (ingredient1.trim() === '' || ingredient2.trim() === '') {
+                alert('Please enter both ingredients');
+                return;
+            }
+            
+
+            document.getElementById('result').style.display = 'block';
+            document.getElementById('thirdIngredient').textContent = 'Processing...';
+            
+            // API call to FastAPI backend
+            fetch(`/generate-ingredient?ingredient1=${encodeURIComponent(ingredient1)}&ingredient2=${encodeURIComponent(ingredient2)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('thirdIngredient').textContent = data.third_ingredient;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('thirdIngredient').textContent = 'Error generating ingredient';
+                });
+        });
+    </script>
+</body>
+</html>
