@@ -29,12 +29,18 @@ def generate_ingredient(ingredient1: str, ingredient2: str):
     
     if matches == -1: #Direct connections
         return {"third_ingredient": "Some of the entered ingredients are not found in the dataset"}
-    if not matches: #BFS connections. 
-        bfs_results = BFS_Connections_Search(ingredient1, ingredient2, 'highly')
-        if bfs_results:
-            return {"third_ingredient": f"{', '.join(bfs_results)}"}
-        #Could add the AI thingy here
-        return {"third_ingredient": "No compatible combinations found, AI thingy goes here"}
 
-    return {"third_ingredient": f"{matches[0][0]} (found via direct connection)"}
+    bfs_results = BFS_Connections_Search(ingredient1, ingredient2, 'highly')
+    
+    if matches: 
+        direct_match = f"{matches[0][0]} (Direct connection)"
+        if bfs_results:
+            bfs_results.discard(matches[0][0]) 
+            return {"third_ingredient": f"{direct_match}\nAdditional suggestions: {', '.join(bfs_results)}"}
+        return {"third_ingredient": direct_match}
+    
+    if bfs_results:
+        return {"third_ingredient": f"{', '.join(bfs_results)}"}
+    
+    return {"third_ingredient": "No compatible combinations found, AI thingy goes here"}
 

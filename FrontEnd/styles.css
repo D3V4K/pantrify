@@ -74,14 +74,6 @@ body.mexican-theme h1 {
     padding-bottom: 10px;
 }
 
-body.mexican-theme h1::after {
-    content: '🌮';
-    position: absolute;
-    right: 10px;
-    top: 0;
-    font-size: 0.8em;
-}
-
 body.mexican-theme .theme-selector select {
     background-color: var(--accent-color);
     border: var(--border-style);
@@ -99,12 +91,17 @@ body.mexican-theme .theme-selector select:hover {
 }
 
 body.mexican-theme input[type="text"] {
-    background-color: var(--accent-color);
-    border: var(--border-style);
-    border-radius: var(--border-radius);
-    color: var(--text-color);
+    width: calc(100% - 24px);
     padding: 12px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
     transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body.mexican-theme input[type="text"]:focus {
@@ -131,14 +128,6 @@ body.mexican-theme button:hover {
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
-body.mexican-theme button::after {
-    content: '🌶️';
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 body.mexican-theme #result {
     background-color: var(--accent-color);
     border: var(--border-style);
@@ -161,14 +150,6 @@ body.mexican-theme .ingredient-label {
     margin-bottom: 5px;
     position: relative;
     padding-left: 25px;
-}
-
-body.mexican-theme .ingredient-label::before {
-    content: '🌮';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 body.mexican-theme .container::after {
@@ -216,24 +197,6 @@ body.japanese-theme .container {
     box-shadow: 0 4px 15px rgba(232, 180, 184, 0.2);
 }
 
-body.japanese-theme .container::before {
-    content: '🌸';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5em;
-    opacity: 0.3;
-}
-
-body.japanese-theme .container::after {
-    content: '🌸';
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    font-size: 1.5em;
-    opacity: 0.3;
-}
-
 body.japanese-theme h1 {
     font-family: 'Noto Serif JP', serif;
     color: var(--secondary-color);
@@ -241,15 +204,6 @@ body.japanese-theme h1 {
     position: relative;
     padding-bottom: 10px;
     letter-spacing: 2px;
-}
-
-body.japanese-theme h1::after {
-    content: '桜';
-    position: absolute;
-    right: 10px;
-    top: 0;
-    font-size: 0.8em;
-    color: var(--primary-color);
 }
 
 body.japanese-theme .theme-selector select {
@@ -269,13 +223,17 @@ body.japanese-theme .theme-selector select:hover {
 }
 
 body.japanese-theme input[type="text"] {
-    background-color: var(--accent-color);
-    border: var(--border-style);
-    border-radius: var(--border-radius);
-    color: var(--text-color);
+    width: calc(100% - 24px);
     padding: 12px;
-    font-family: 'Noto Sans JP', sans-serif;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
     transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body.japanese-theme input[type="text"]:focus {
@@ -302,29 +260,12 @@ body.japanese-theme button:hover {
     box-shadow: 0 5px 15px rgba(232, 180, 184, 0.3);
 }
 
-body.japanese-theme button::after {
-    content: '🌸';
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 body.japanese-theme #result {
     background-color: var(--accent-color);
     border: var(--border-style);
     border-radius: var(--border-radius);
     padding: 20px;
     position: relative;
-}
-
-body.japanese-theme #result::before {
-    content: '✨';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.2em;
-    color: var(--primary-color);
 }
 
 body.japanese-theme .ingredient-label {
@@ -334,14 +275,6 @@ body.japanese-theme .ingredient-label {
     position: relative;
     padding-left: 25px;
     font-family: 'Noto Sans JP', sans-serif;
-}
-
-body.japanese-theme .ingredient-label::before {
-    content: '🍡';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 body.japanese-theme p {
@@ -420,15 +353,6 @@ body.indian-theme .container {
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
 }
 
-body.indian-theme .container::before {
-    content: '✨';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5em;
-    color: var(--primary-color);
-}
-
 body.indian-theme h1 {
     font-family: 'Cinzel', serif;
     color: var(--primary-color);
@@ -437,14 +361,6 @@ body.indian-theme h1 {
     padding-bottom: 10px;
     letter-spacing: 3px;
     text-transform: uppercase;
-}
-
-body.indian-theme h1::after {
-    content: '👑';
-    position: absolute;
-    right: 10px;
-    top: 0;
-    font-size: 0.8em;
 }
 
 body.indian-theme .theme-selector select {
@@ -465,13 +381,17 @@ body.indian-theme .theme-selector select:hover {
 }
 
 body.indian-theme input[type="text"] {
-    background-color: rgba(0, 0, 0, 0.7);
-    border: var(--border-style);
-    border-radius: var(--border-radius);
-    color: var(--primary-color);
+    width: calc(100% - 24px);
     padding: 12px;
-    font-family: 'Cinzel', serif;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
     transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body.indian-theme input[type="text"]:focus {
@@ -499,29 +419,12 @@ body.indian-theme button:hover {
     box-shadow: 0 5px 15px var(--primary-color);
 }
 
-body.indian-theme button::after {
-    content: '🎬';
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 body.indian-theme #result {
     background-color: rgba(0, 0, 0, 0.7);
     border: var(--border-style);
     border-radius: var(--border-radius);
     padding: 20px;
     position: relative;
-}
-
-body.indian-theme #result::before {
-    content: '🌟';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.2em;
-    color: var(--primary-color);
 }
 
 body.indian-theme .ingredient-label {
@@ -532,14 +435,6 @@ body.indian-theme .ingredient-label {
     padding-left: 25px;
     font-family: 'Cinzel', serif;
     text-transform: uppercase;
-}
-
-body.indian-theme .ingredient-label::before {
-    content: '🍛';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 body.indian-theme p {
@@ -612,24 +507,6 @@ body.thai-theme .container {
     box-shadow: 0 4px 15px rgba(184, 134, 11, 0.2);
 }
 
-body.thai-theme .container::before {
-    content: '🏮';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5em;
-    opacity: 0.7;
-}
-
-body.thai-theme .container::after {
-    content: '🏮';
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    font-size: 1.5em;
-    opacity: 0.7;
-}
-
 body.thai-theme h1 {
     font-family: 'Poppins', sans-serif;
     color: var(--primary-color);
@@ -637,14 +514,6 @@ body.thai-theme h1 {
     position: relative;
     padding-bottom: 10px;
     letter-spacing: 2px;
-}
-
-body.thai-theme h1::after {
-    content: '🍜';
-    position: absolute;
-    right: 10px;
-    top: 0;
-    font-size: 0.8em;
 }
 
 body.thai-theme .theme-selector select {
@@ -664,13 +533,17 @@ body.thai-theme .theme-selector select:hover {
 }
 
 body.thai-theme input[type="text"] {
-    background-color: var(--accent-color);
-    border: var(--border-style);
-    border-radius: var(--border-radius);
-    color: var(--text-color);
+    width: calc(100% - 24px);
     padding: 12px;
-    font-family: 'Poppins', sans-serif;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
     transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body.thai-theme input[type="text"]:focus {
@@ -697,29 +570,12 @@ body.thai-theme button:hover {
     box-shadow: 0 5px 15px rgba(184, 134, 11, 0.3);
 }
 
-body.thai-theme button::after {
-    content: '🌶️';
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 body.thai-theme #result {
     background-color: var(--accent-color);
     border: var(--border-style);
     border-radius: var(--border-radius);
     padding: 20px;
     position: relative;
-}
-
-body.thai-theme #result::before {
-    content: '✨';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.2em;
-    color: var(--primary-color);
 }
 
 body.thai-theme .ingredient-label {
@@ -729,14 +585,6 @@ body.thai-theme .ingredient-label {
     position: relative;
     padding-left: 25px;
     font-family: 'Poppins', sans-serif;
-}
-
-body.thai-theme .ingredient-label::before {
-    content: '🥢';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 body.thai-theme p {
@@ -802,24 +650,6 @@ body.chinese-theme .container {
     box-shadow: 0 4px 15px rgba(178, 34, 34, 0.2);
 }
 
-body.chinese-theme .container::before {
-    content: '🏮';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5em;
-    opacity: 0.7;
-}
-
-body.chinese-theme .container::after {
-    content: '🏮';
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    font-size: 1.5em;
-    opacity: 0.7;
-}
-
 body.chinese-theme h1 {
     font-family: 'Noto Serif SC', serif;
     color: var(--primary-color);
@@ -827,14 +657,6 @@ body.chinese-theme h1 {
     position: relative;
     padding-bottom: 10px;
     letter-spacing: 2px;
-}
-
-body.chinese-theme h1::after {
-    content: '🥢';
-    position: absolute;
-    right: 10px;
-    top: 0;
-    font-size: 0.8em;
 }
 
 body.chinese-theme .theme-selector select {
@@ -854,13 +676,17 @@ body.chinese-theme .theme-selector select:hover {
 }
 
 body.chinese-theme input[type="text"] {
-    background-color: var(--accent-color);
-    border: var(--border-style);
-    border-radius: var(--border-radius);
-    color: var(--text-color);
+    width: calc(100% - 24px);
     padding: 12px;
-    font-family: 'Noto Serif SC', serif;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
     transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body.chinese-theme input[type="text"]:focus {
@@ -887,22 +713,6 @@ body.chinese-theme button:hover {
     box-shadow: 0 5px 15px rgba(178, 34, 34, 0.3);
 }
 
-body.chinese-theme button::after {
-    content: '🥟';
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-body.chinese-theme .ingredient-label::before {
-    content: '🍜';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
 /* Greek Theme */
 body.greek-theme {
     background-image: url('https://www.transparenttextures.com/patterns/greek-pattern.png');
@@ -926,24 +736,6 @@ body.greek-theme .container {
     box-shadow: 0 4px 15px rgba(0, 0, 128, 0.2);
 }
 
-body.greek-theme .container::before {
-    content: '🏛️';
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 1.5em;
-    opacity: 0.7;
-}
-
-body.greek-theme .container::after {
-    content: '🏛️';
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
-    font-size: 1.5em;
-    opacity: 0.7;
-}
-
 body.greek-theme h1 {
     font-family: 'Noto Serif Display', serif;
     color: var(--primary-color);
@@ -951,14 +743,6 @@ body.greek-theme h1 {
     position: relative;
     padding-bottom: 10px;
     letter-spacing: 2px;
-}
-
-body.greek-theme h1::after {
-    content: '🏺';
-    position: absolute;
-    right: 10px;
-    top: 0;
-    font-size: 0.8em;
 }
 
 body.greek-theme .theme-selector select {
@@ -978,13 +762,17 @@ body.greek-theme .theme-selector select:hover {
 }
 
 body.greek-theme input[type="text"] {
-    background-color: var(--accent-color);
-    border: var(--border-style);
-    border-radius: var(--border-radius);
-    color: var(--text-color);
+    width: calc(100% - 24px);
     padding: 12px;
-    font-family: 'Noto Serif Display', serif;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
     transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
 }
 
 body.greek-theme input[type="text"]:focus {
@@ -1009,22 +797,6 @@ body.greek-theme button {
 body.greek-theme button:hover {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0, 0, 128, 0.3);
-}
-
-body.greek-theme button::after {
-    content: '🍇';
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-body.greek-theme .ingredient-label::before {
-    content: '🍷';
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 /* Add Greek-style quote */
