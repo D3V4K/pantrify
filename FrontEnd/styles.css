@@ -1014,4 +1014,18 @@ body.italian-theme button:hover {
     background-color: var(--secondary-color);
     color: #FFFFFF; /* Keep text white on hover */
     transform: translateY(-2px);
+}
+
+body.italian-theme input[type="text"] {
+    width: calc(100% - 24px);
+    padding: 12px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 1.1em;
+    background-color: var(--accent-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-family: var(--font-family);
+    margin: 0;
+    box-sizing: border-box;
 } 
