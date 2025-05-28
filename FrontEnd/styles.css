@@ -995,4 +995,23 @@ button:hover {
 /* Add theme transition class */
 .theme-transition {
     animation: themeTransition 0.5s ease;
+}
+
+body.italian-theme button {
+    background-color: var(--primary-color);
+    color: #FFFFFF; /* White text for better contrast */
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    padding: 15px 25px;
+    font-family: var(--font-family);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+body.italian-theme button:hover {
+    background-color: var(--secondary-color);
+    color: #FFFFFF; /* Keep text white on hover */
+    transform: translateY(-2px);
 } 
