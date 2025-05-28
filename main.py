@@ -25,6 +25,9 @@ def read_root():
 
 @app.get("/generate-ingredient")
 def generate_ingredient(ingredient1: str, ingredient2: str):
+    ingredient1 = ingredient1.strip()
+    ingredient2 = ingredient2.strip()
+    
     matches = find_matching_ingredient(ingredient1, ingredient2)
     
     if matches == -1: #Direct connections
@@ -33,11 +36,8 @@ def generate_ingredient(ingredient1: str, ingredient2: str):
     bfs_results = BFS_Connections_Search(ingredient1, ingredient2, 'highly')
     
     if matches: 
-        direct_match = f"{matches[0][0]} (Direct connection)"
-        if bfs_results:
-            bfs_results.discard(matches[0][0]) 
-            return {"third_ingredient": f"{direct_match}\nAdditional suggestions: {', '.join(bfs_results)}"}
-        return {"third_ingredient": direct_match}
+        all_results = [matches[0][0]] + list(bfs_results)
+        return {"third_ingredient": ", ".join(all_results)}
     
     if bfs_results:
         return {"third_ingredient": f"{', '.join(bfs_results)}"}
