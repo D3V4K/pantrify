@@ -7,29 +7,107 @@ import random
 from cuisines import * 
 
 
-def build_train_data(cuisine: Cuisine) -> dict[tuple[str, str, str], bool]:
+def make_trios(cuisine: Cuisine) -> dict[tuple[int, ...], int]:
     """
-    Build training data for the model. The training data is a dictionary where the keys are tuples of three ingredients
-    and the values are booleans indicating whether the three ingredients are used together in a recipe.
+    Use build_train_data to create a dictionary of trios for the model. 
 
     @param  cuisine one of the 5 cuisines laid out in Cuisines enum
-    @return         a dictionary with tuples of three ingredients as keys and booleans as values
+    @return         a dictionary where the keys are tuples of three ingredient indices and the values are 1 if the trio is correct, -1 otherwise
     """
-    all_ingredients: list[list[list[str]]] = [get_cuisine_ingredients(i) for i in range(1, 5)]
-    correct_ingredients: list[list[str]] = all_ingredients.pop(cuisine-1)
-    incorrect_ingredients: list[list[str]] = sum((random.sample(ls, len(ls)//4) for ls in all_ingredients), start=[])
+    correct_ingredients, incorrect_ingredients = build_train_data(cuisine)
+    ret = {}
+    for triplet in form_triplets(correct_ingredients):
+        ret[tuple(triplet)] = 1
+    for triplet in form_triplets(incorrect_ingredients):
+        ret[tuple(triplet)] = -1
+    return ret
 
-    unpacked_correct_ingredients: set[str] = set(sum(correct_ingredients, start=[]))
+
+def form_triplets(ingredients: list[int]) -> list[list[int]]:
+    """
+    Helper function for make_trios; forms all possible triplets of ingredients from the input list
+
+    @param  ingredients a list of ingredient indices
+    @return            a list of lists, where each inner list is a triplet of ingredient indices
+    """
+    item_pool = []
+    for idx, count in enumerate(counts):
+        item_pool.extend([idx] * count)
+
+    item_counter = Counter(item_pool)
+    result = []
+
+    while sum(item_counter.values()) >= 3:
+        distinct_items = [item for item in item_counter if item_counter[item] > 0]
+        if len(distinct_items) >= 3:
+            group = distinct_items[:3]
+        else:
+            group = []
+            for item in item_counter:
+                group.extend([item] * min(item_counter[item], 3 - len(group)))
+                if len(group) == 3:
+                    break
+
+        for item in group:
+            item_counter[item] -= 1
+            if item_counter[item] == 0:
+                del item_counter[item]
+
+        group_counts = [0] * len(counts)
+        for item in group:
+            group_counts[item] += 1
+
+        if all(x <= 1 for x in group_counts):
+            result.append(group_counts)
+
+    return result
+
+
+def build_train_data(cuisine: Cuisine) -> tuple[list[list[int]], list[list[int]]]:
+    """
+    Use get_cuisine_ingredients to build training data for the model. 
+
+    @param  cuisine one of the 5 cuisines laid out in Cuisines enum
+    @return         a tuple of two lists: the correct ingredients and the incorrect ingredients
+    """
+    with open("../datasets/ingredients.json") as fp:
+        possible_ingredients: list[str] = json.load(fp)
+    all_ingredients: list[list[list[str]]] = [get_cuisine_ingredients(i) for i in range(1, 6)]
+    for i in range(len(all_ingredients)):
+        if i != cuisine-1:
+            all_ingredients[i] = random.sample(all_ingredients[i], len(all_ingredients[i]) // 4)
+    for cuisine in all_ingredients:
+        for i in range(len(cuisine)):
+            cuisine[i] = count(possible_ingredients, cuisine[i])
+
+    correct_ingredients: list[list[int]] = all_ingredients.pop(cuisine-1)
+    incorrect_ingredients: list[list[int]] = sum(all_ingredients, start=[])
+    is_in_correct: list[bool] = [True] * len(possible_ingredients)
+    for recipe in correct_ingredients:
+        for i in range(len(is_in_correct)):
+            is_in_correct[i] |= bool(recipe[i])
     for recipe in incorrect_ingredients:
-        for i, ingredient in enumerate(recipe):
-            if ingredient in unpacked_correct_ingredients:
-                recipe.pop(i)
-    
-    correct_ingredient_combos: list[tuple[str, str, str]] = sum([list(itertools.combinations(i, 3)) for i in correct_ingredients], start=[])
-    incorrect_ingredient_combos: list[tuple[str, str, str]] = sum([list(itertools.combinations(i, 3)) for i in incorrect_ingredients], start=[])
-    with_truths: list[tuple[tuple[str, str, str], bool]] = [(i, True) for i in correct_ingredient_combos] + [(i, False) for i in incorrect_ingredient_combos]
-    random.shuffle(with_truths)
-    return dict(with_truths)
+        for i in range(len(possible_ingredients)):
+            recipe[i] &= not is_in_correct[i]
+
+    return correct_ingredients, incorrect_ingredients
+
+
+def count(possible: list[str], raw: list[str]) -> list[int]:
+    """
+    Count how many times each ingredient from possible appears in raw
+
+    @param  possible a list of all possible ingredients
+    @param  raw      a list of ingredients to count
+    @return          a list of counts, where the i-th element is the count of the i-th ingredient in possible
+    """
+    counts = [0] * len(possible)
+    for raw_ingredient in raw:
+        for j, possible_ingredient in enumerate(possible):
+            if raw_ingredient.find(possible_ingredient) != -1:
+                counts[j] += 1
+    return counts
+
 
 
 def get_cuisine_ingredients(cuisine: Cuisine) -> list[list[str]]:
