@@ -40,7 +40,16 @@ def read_root():
     with open("FrontEnd/index.html") as fp:
         return fp.read()
 
+
 @app.get("/generate-ingredient")
+def generate_filtered_ingredient(ingredient1: str, ingredient2: str, cuisine: str):
+    res = generate_ingredient(ingredient1, ingredient2)
+    if cuisine != "default" and res != {"third_ingredient": "No compatible combinations found, AI thingy goes here"} and res != {"third_ingredient": "Some of the entered ingredients are not found in the dataset"}:
+        res["third_ingredient"] = filter_by_cuisine(cuisine_list.index(cuisine) + 1, ingredient1, ingredient2, res["third_ingredient"].split(", "))
+        res["third_ingredient"] = ", ".join(res["third_ingredient"])
+    return res
+
+
 def generate_ingredient(ingredient1: str, ingredient2: str):
     ingredient1 = ingredient1.strip()
     ingredient2 = ingredient2.strip()
