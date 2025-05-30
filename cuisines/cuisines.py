@@ -9,3 +9,5 @@ class Cuisines(IntEnum):
     MIDDLE_EASTERN=4
     CHINESE=5
 
+cuisine_list = ["Mexican", "Italian", "Indian", "Middle Eastern", "Chinese"]
+

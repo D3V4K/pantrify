@@ -1,9 +1,26 @@
+import json
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from recommender.exact_match import find_matching_ingredient
 from recommender.compound_connections import BFS_Connections_Search
 from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
+
+from sklearn.linear_model import LogisticRegression
+
+from cuisines.build_training_data import make_trios
+from cuisines.cuisines import Cuisine, cuisine_list
+
+
+lr_models = [LogisticRegression(max_iter=1000, solver='lbfgs') for _ in range(len(cuisine_list))]
+
+for i in lr_models:
+    trios = make_trios(i)
+    i.fit(list(trios.keys()), list(trios.values()))
+
+with open("datasets/ingredients.json") as fp:
+    ingredient_list = json.load(fp)
 
 app = FastAPI()
 
@@ -43,4 +60,15 @@ def generate_ingredient(ingredient1: str, ingredient2: str):
         return {"third_ingredient": f"{', '.join(bfs_results)}"}
     
     return {"third_ingredient": "No compatible combinations found, AI thingy goes here"}
+
+
+def filter_by_cuisine(cuisine: Cuisine, input1: str, input2: str, outputs: list[str]) -> list[str]:
+    input1, input2 = ingredient_list.index(input1), ingredient_list.index(input2), [ingredient_list.index(output) for output in outputs]
+    Xs = [[0] * len(ingredient_list) for _ in range(len(outputs))]
+    for i in range(len(Xs)):
+        Xs[i][input1] = 1
+        Xs[i][input2] = 1
+        Xs[i][outputs[i]] = 1
+    predictions = lr_models[cuisine - 1].predict_proba(Xs)[:, 1]
+    return [outputs[i] for i in range(len(outputs)) if predictions[i] > 0.25]
 
