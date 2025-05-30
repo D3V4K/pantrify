@@ -12,12 +12,12 @@
         <h1>Pantrify</h1>
         <div class="theme-selector">
             <select id="cuisineTheme">
-                <option value="italian" selected>Italian Cuisine</option>
-                <option value="mexican">Mexican Cuisine</option>
-                <option value="chinese">Chinese Cuisine</option>
-                <option value="indian">Indian Cuisine</option>
-                <option value="thai">Thai Cuisine</option>
-                <option value="greek">Greek Cuisine</option>
+                <option value="default">Select Cuisine Theme</option>
+                <option value="Mexican">Mexican Cuisine</option>
+                <option value="Italian" selected>Italian Cuisine</option>
+                <option value="Indian">Indian Cuisine</option>
+                <option value="Middle Eastern">Middle Eastern Cuisine</option>
+                <option value="Chinese">Chinese Cuisine</option>
             </select>
         </div>
         <p>Enter two ingredients below to get suggested ingredients:</p>
@@ -68,6 +68,7 @@
         });
 
         document.getElementById('combineBtn').addEventListener('click', function() {
+            const cuisineTheme = document.getElementById('cuisineTheme').value;
             const ingredient1 = document.getElementById('ingredient1').value;
             const ingredient2 = document.getElementById('ingredient2').value;
             
@@ -76,11 +77,10 @@
                 return;
             }
             
-
             document.getElementById('result').style.display = 'block';
             document.getElementById('thirdIngredient').textContent = 'Processing...';
             
-            fetch(`/generate-ingredient?ingredient1=${encodeURIComponent(ingredient1)}&ingredient2=${encodeURIComponent(ingredient2)}`)
+            fetch(`/generate-ingredient?ingredient1=${encodeURIComponent(ingredient1)}&ingredient2=${encodeURIComponent(ingredient2)}&cuisine=${encodeURIComponent(cuisineTheme)}`)
                 .then(response => response.json())
                 .then(data => {
                     document.getElementById('thirdIngredient').textContent = data.third_ingredient;
